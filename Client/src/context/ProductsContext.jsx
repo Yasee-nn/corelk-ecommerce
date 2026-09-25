@@ -1,7 +1,7 @@
 import { useState, createContext, useEffect, useContext } from "react"
 import { useOrders } from "./OrdersContext"
 
-export const ProductsContext = createContext()
+const ProductsContext = createContext()
 
 export const ProductsProvider = ({ children }) => {
 
@@ -38,7 +38,7 @@ export const ProductsProvider = ({ children }) => {
 
   useEffect(() => {
     getItems()
-  }, [getReviews])
+  }, [])
 
   return (
     <ProductsContext.Provider value={{

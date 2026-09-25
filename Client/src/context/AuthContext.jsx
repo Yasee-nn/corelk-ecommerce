@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { toast } from 'sonner'
 
-export const AuthContext = createContext()
+const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
 
@@ -11,7 +10,6 @@ export const AuthProvider = ({ children }) => {
     const [loginLoading, setLoginLoading] = useState(false)
     const [registerLoading, setRegisterLoading] = useState(false)
     const [user, setUser] = useState(null)
-    const navigate = useNavigate()
 
     useEffect(() => {
         const checkAuth = async () => {

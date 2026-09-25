@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect, useContext } from "react"
 import { useAuth } from "./AuthContext"
-import { useCart } from "./CartContext"
+
 import { toast } from "sonner"
 
 export const OrdersContext = createContext()
@@ -17,6 +17,7 @@ export const OrdersProvider = ({ children }) => {
   const [reviewStatus, setReviewStatus] = useState({})
   const [reviewStatusLoading, setReviewStatusLoading] = useState(true)
   const { user } = useAuth()
+
 
   const getOrders = async () => {
     try {
@@ -219,6 +220,7 @@ export const OrdersProvider = ({ children }) => {
 
       if (data.success) {
         toast.success(data.message)
+        isReviewed()
       }
 
     } catch (err) {
@@ -247,8 +249,9 @@ export const OrdersProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    if (!user) return
     isReviewed()
-  }, [orders, reviewStatus])
+  }, [orders])
 
   useEffect(() => {
     if (!user) return

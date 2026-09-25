@@ -121,9 +121,9 @@ function OrderCard({ id, orderId, placedTime, items, total, payMethod }) {
                     <span className='text-xs cursor-default'>* Click here to provide feedback.</span>
                     </div>} */}
 
-                {item.orderStatus === 'delivered' && !reviewStatus?.[item.product._id] && <div className='flex gap-2 mt-3'>
-                    <button disabled={reviewStatus && (reviewStatus[item.product._id] ? true : false)} onClick={() => { setReviewItem(item.product._id); setHidden(true) }} className={`text-xs my-auto text-left ${reviewStatus ? (reviewStatusLoading ? 'text-blue-500' : reviewStatus[item.product._id] ? 'text-green-600' : 'text-green-700 cursor-pointer') : 'text-blue-500'} select-none`}>{reviewStatus ? (reviewStatusLoading ? 'Syncing...' : reviewStatus[item.product._id] ? 'Reviewed' : 'Review') : 'Syncing...'}</button>
-                    <span className='hidden sm:block  text-xs cursor-default'>* Click here to provide feedback.</span>
+                {item.orderStatus === 'delivered' && <div className='flex gap-2 mt-3'>
+                    <button disabled={reviewStatus && (reviewStatus[item.product._id] ? true : false)} onClick={() => { setReviewItem(item.product._id); setHidden(true) }} className={`text-xs my-auto text-left ${reviewStatus ? (reviewStatusLoading ? 'text-blue-500' : reviewStatus[item.product._id] ? 'text-green-600' : 'text-green-700 cursor-pointer') : 'text-blue-500'} select-none`}>{reviewStatusLoading ? 'Syncing...' : reviewStatus[item.product._id] ? 'Reviewed' : 'Review'}</button>
+                    {reviewStatus[item.product._id] ? null : <span className='hidden sm:block  text-xs cursor-default'>* Click here to provide feedback.</span>}
                 </div>}
 
             </div>

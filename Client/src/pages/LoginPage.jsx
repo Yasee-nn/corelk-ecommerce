@@ -11,7 +11,7 @@ function LoginPage() {
 
     const navigate = useNavigate()
     const location = useLocation()
-    const { loginUser, user, loading,loginLoading } = useAuth()
+    const { loginUser, loginLoading } = useAuth()
     const [formData, setFormData] = useState({ email: "", password: "" })
     const [inputType, setInputType] = useState("password")
 
@@ -19,7 +19,7 @@ function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const data = await loginUser(formData)
+        await loginUser(formData)
         navigate(from, { replace: true })
         e.target.reset()
     }
