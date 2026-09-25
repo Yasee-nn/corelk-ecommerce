@@ -17,6 +17,7 @@ import RegisterPage from '../pages/RegisterPage'
 import Checkout from '../pages/Checkout'
 import OrderStatus from '../pages/OrderStatus'
 import ProtectedRoute from './ProtectedRoute'
+import AuthRoute from './AuthRoute'
 import App from '../App'
 
 const router = createBrowserRouter([
@@ -41,24 +42,50 @@ const router = createBrowserRouter([
         element: <Contact />
       },
       {
-        path: '/profile',
-        element: <ProtectedRoute><Profile /></ProtectedRoute>,
+        element: <AuthRoute />,
         children: [
           {
-            index: true,
-            element: <Navigate to='accountsettings' replace />,
+            path: '/login',
+            element: <LoginPage />
           },
           {
-            path: 'accountsettings',
-            element: <AccountSettings />,
+            path: '/register',
+            element: <RegisterPage />
+          },
+        ]
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '/profile',
+            element: <Profile />,
+            children: [
+              {
+                index: true,
+                element: <Navigate to='accountsettings' replace />,
+              },
+              {
+                path: 'accountsettings',
+                element: <AccountSettings />,
+              },
+              {
+                path: 'myorders',
+                element: <MyOrders />
+              },
+              {
+                path: 'addresses',
+                element: <Addresses />
+              },
+            ]
           },
           {
-            path: 'myorders',
-            element: <MyOrders />
+            path: '/checkout',
+            element: <Checkout />
           },
           {
-            path: 'addresses',
-            element: <Addresses />
+            path: '/orderstatus/:orderId',
+            element: <OrderStatus />
           },
         ]
       },
@@ -73,22 +100,6 @@ const router = createBrowserRouter([
       {
         path: '/product/:slug',
         element: <ProductDetails />
-      },
-      {
-        path: '/login',
-        element: <LoginPage />
-      },
-      {
-        path: '/checkout',
-        element: <ProtectedRoute><Checkout /></ProtectedRoute>
-      },
-      {
-        path: '/orderstatus/:orderId',
-        element: <ProtectedRoute><OrderStatus /></ProtectedRoute>
-      },
-      {
-        path: '/register',
-        element: <RegisterPage />
       },
       {
         path: '*',
